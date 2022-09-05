@@ -1,10 +1,16 @@
 import Users.UsersClient;
 import org.hamcrest.Matchers;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.given;
 
 public class CreateUserNegativeTests {
+    private UsersClient usersClient;
+    @BeforeClass
+    public void beforeClass(){
+        usersClient = new UsersClient();
+    }
     @Test
     public void shouldNotAllowToCreateUserWithExistingUser() {
         String CreateUserReqBody = "{\n" +
@@ -12,7 +18,8 @@ public class CreateUserNegativeTests {
                 "    \"lastName\": \"juturu\",\n" +
                 "    \"email\": \"jafar7@gmail.com\"\n" +
                 "}";
-        new UsersClient().createUser(CreateUserReqBody)
+        usersClient
+                .createUser(CreateUserReqBody)
                 .then()
                 .log().body()
                 .statusCode(200);
@@ -24,7 +31,8 @@ public class CreateUserNegativeTests {
                 "    \"lastName\": \"juturu\",\n" +
                 "    \"email\": \"jafar7gmail.com\"\n" +
                 "}";
-        new UsersClient().createUser(CreateUserReqBody)
+        usersClient
+                .createUser(CreateUserReqBody)
                 .then()
                 .log().body()
                 .statusCode(400)
