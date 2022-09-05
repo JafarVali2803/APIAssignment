@@ -1,6 +1,6 @@
 import java.util.StringTokenizer;
 
-public class CreateUserRequest {
+public class Dummy {
    private String firstName;
     private String lastName;
     private String email;
