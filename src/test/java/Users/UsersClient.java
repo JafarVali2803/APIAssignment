@@ -1,11 +1,12 @@
 package Users;
 
+import Users.Create.CreateUserRequestBody;
 import io.restassured.response.Response;
 
 import static io.restassured.RestAssured.given;
 
 public class UsersClient {
-    public static Response createUser(String createUserReqBody) {
+    public static Response createUser(CreateUserRequestBody createUserReqBody) {
         return
                 given()
                     .header("app-id", "631039b2b2ee91048226aa57")

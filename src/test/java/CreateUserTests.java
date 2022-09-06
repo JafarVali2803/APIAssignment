@@ -1,3 +1,4 @@
+import Users.Create.CreateUserRequestBody;
 import Users.UsersClient;
 import groovyjarjarantlr4.v4.codegen.model.SrcOp;
 import io.restassured.response.Response;
@@ -11,6 +12,7 @@ import java.util.UUID;
 import static io.restassured.RestAssured.given;
 
 public class CreateUserTests {
+   //Arrange
     private UsersClient usersClient;
     @BeforeClass
     public void beforeClass(){
@@ -19,15 +21,16 @@ public class CreateUserTests {
     @Test
     public void shouldCreateUser() {
        String email = String.format("%s@gmail.com", UUID.randomUUID());
-        String createUserReqBody = String.format("{\n" +
-                "    \"firstName\": \"jafar\",\n" +
-                "    \"lastName\": \"juturu\",\n" +
-                "    \"email\": \"%s\"\n" +
-                "}",email);
+       String firstName = "jafar1";
+       String lastName = "juturu1";
+
+         CreateUserRequestBody createUserRequestBody = new CreateUserRequestBody(firstName,lastName,email);
+        //Act
        usersClient
-               .createUser(createUserReqBody)
+               .createUser(createUserRequestBody)
                 .then()
                 .log().body()
+       //Assert
                 .statusCode(200)
                 .body("id", Matchers.notNullValue())
                 .body("email", Matchers.equalTo(email));

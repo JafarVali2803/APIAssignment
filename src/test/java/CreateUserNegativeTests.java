@@ -1,3 +1,4 @@
+import Users.Create.CreateUserRequestBody;
 import Users.UsersClient;
 import org.hamcrest.Matchers;
 import org.testng.annotations.BeforeClass;
@@ -13,26 +14,29 @@ public class CreateUserNegativeTests {
     }
     @Test
     public void shouldNotAllowToCreateUserWithExistingUser() {
-        String CreateUserReqBody = "{\n" +
-                "    \"firstName\": \"jafar\",\n" +
-                "    \"lastName\": \"juturu\",\n" +
-                "    \"email\": \"jafar7@gmail.com\"\n" +
-                "}";
+
+        String firstName = "jafar1";
+        String lastName = "juturu1";
+        String email = "jafar7@gmail.com";
+
+        CreateUserRequestBody createUserRequestBody = new CreateUserRequestBody(firstName,lastName,email);
         usersClient
-                .createUser(CreateUserReqBody)
+                .createUser(createUserRequestBody)
                 .then()
                 .log().body()
-                .statusCode(200);
+                .statusCode(400)
+                .body("data.email",Matchers.equalTo("Email already used"));
     }
     @Test
     public void shouldNotAllowToCreateUserWithInvalidUser() {
-        String CreateUserReqBody = "{\n" +
-                "    \"firstName\": \"jafar\",\n" +
-                "    \"lastName\": \"juturu\",\n" +
-                "    \"email\": \"jafar7gmail.com\"\n" +
-                "}";
+
+        String firstName = "jafar1";
+        String lastName = "juturu1";
+        String email = "jafar7gmail.com";
+
+        CreateUserRequestBody createUserRequestBody = new CreateUserRequestBody(firstName,lastName,email);
         usersClient
-                .createUser(CreateUserReqBody)
+                .createUser(createUserRequestBody)
                 .then()
                 .log().body()
                 .statusCode(400)
