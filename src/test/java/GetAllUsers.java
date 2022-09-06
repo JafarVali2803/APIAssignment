@@ -9,6 +9,7 @@ public class GetAllUsers {
     private UsersClient usersClient;
     @BeforeClass
     public void beforeClass(){
+
         usersClient = new UsersClient();
     }
     @Test

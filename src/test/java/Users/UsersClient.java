@@ -9,6 +9,7 @@ public class UsersClient {
         return
                 given()
                     .header("app-id", "631039b2b2ee91048226aa57")
+                    .contentType("application/json")
                     .body(createUserReqBody)
                 .when()
                     .post("https://dummyapi.io/data/v1/user/create");
@@ -27,6 +28,15 @@ public class UsersClient {
                     .header("app-id", "631039b2b2ee91048226aa57")
                 .when()
                     .get("https://dummyapi.io/data/v1/user?created=1");
+    }
+
+    public static Response createPost(String createPostReqBody) {
+        return given()
+                .header("app-id", "631039b2b2ee91048226aa57")
+                .contentType("application/json")
+                .body(createPostReqBody)
+                .when()
+                .post("https://dummyapi.io/data/v1/post/create");
     }
 }
 

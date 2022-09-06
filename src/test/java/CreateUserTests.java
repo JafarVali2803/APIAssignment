@@ -18,18 +18,7 @@ public class CreateUserTests {
     }
     @Test
     public void shouldCreateUser() {
-        //  throws JsonProcessingException {
-//  CreateUserRequest createUserRequest = new CreateUserRequest();
-//  createUserRequest.setEmail("jafar343@gmail.com");
-//  createUserRequest.setFirstName("Jafar");
-//  createUserRequest.setLastName("juturu");
-//
-// ObjectMapper mapper = new ObjectMapper();
-// //Converting the Object to JSONString
-// String jsonString = mapper.writeValueAsString(createUserRequest);
-// System.out.println(jsonString);
-
-       String email = String.format("@gmail.com", UUID.randomUUID());
+       String email = String.format("%s@gmail.com", UUID.randomUUID());
         String createUserReqBody = String.format("{\n" +
                 "    \"firstName\": \"jafar\",\n" +
                 "    \"lastName\": \"juturu\",\n" +
