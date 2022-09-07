@@ -1,6 +1,8 @@
 package Users;
 
+import Users.Create.CreatePostRequestBody;
 import Users.Create.CreateUserRequestBody;
+import Users.Create.Response.CreatePostResponse;
 import Users.Create.Response.CreateUserResponse;
 import io.restassured.response.Response;
 
@@ -44,11 +46,19 @@ public class UsersClient {
                     .get("https://dummyapi.io/data/v1/user?created=1");
     }
 
-    public static Response createPost(String createPostReqBody) {
+    public static CreatePostResponse createPost(CreatePostRequestBody createPostRequestBody) {
+        Response response = createPost1(createPostRequestBody);
+        CreatePostResponse createPostResponse = response.as(CreatePostResponse.class);
+        createPostResponse.setStatusCode(response.getStatusCode());
+        return
+                createPostResponse;
+    }
+
+    private static Response createPost1(CreatePostRequestBody createPostRequestBody) {
         return given()
                 .header("app-id", "631039b2b2ee91048226aa57")
                 .contentType("application/json")
-                .body(createPostReqBody)
+                .body(createPostRequestBody)
                 .when()
                 .post("https://dummyapi.io/data/v1/post/create");
     }

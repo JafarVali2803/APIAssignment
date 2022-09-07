@@ -1,9 +1,14 @@
+import Users.Create.CreatePostRequestBody;
+import Users.Create.Response.CreatePostResponse;
 import Users.UsersClient;
 import io.restassured.response.Response;
+import org.hamcrest.Matchers;
+import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.given;
+import static org.testng.Assert.*;
 
 public class CreatePosts {
 
@@ -14,16 +19,16 @@ public class CreatePosts {
     }
     @Test
     public void shouldCreatePost() {
-        String createPostReqBody = "{\n" +
-                "\"text\": \"Testing\",\n" +
-                "\"image\": \"https://devops.com/software-testing-the-comeback-kid-of-the-2020s/\",\n" +
-                "\"likes\": 10,\n" +
-                "\"tags\": [\"test\",\"testing\"],\n" +
-                "\"owner\": \"631592864779a10fec06c398\"\n" +
-                "}";
-      usersClient.createPost(createPostReqBody)
-                .then()
-                .log().body()
-                .statusCode(200);
+
+        CreatePostRequestBody createPostRequestBody =
+                CreatePostRequestBody.builder().text("testing").image("https://devops.com/software-testing-the-comeback-kid-of-the-2020s")
+                        .likes(10).tags("test").owner("631592864779a10fec06c398").build();
+
+        CreatePostResponse createPostResponse = usersClient.createPost(createPostRequestBody);
+
+        assertEquals(createPostResponse.getStatusCode(),200);
+        assertNotNull(createPostResponse.getId());
+        assertEquals(createPostResponse.getCreatePostResponseOwner().getId(),createPostRequestBody.getOwner());
+
     }
 }
