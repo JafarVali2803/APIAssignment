@@ -1,8 +1,11 @@
 import Users.Create.CreateUserRequestBody;
+import Users.Create.Response.CreateUserResponse;
 import Users.UsersClient;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import groovyjarjarantlr4.v4.codegen.model.SrcOp;
 import io.restassured.response.Response;
 import org.hamcrest.Matchers;
+import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -10,6 +13,7 @@ import java.util.Spliterator;
 import java.util.UUID;
 
 import static io.restassured.RestAssured.given;
+import static org.testng.Assert.*;
 
 public class CreateUserTests {
    //Arrange
@@ -25,13 +29,11 @@ public class CreateUserTests {
         CreateUserRequestBody createUserRequestBody = CreateUserRequestBody.builder()
                 .firstName("jafar1").lastName("juturu1").email(email).build();
         //Act
-       usersClient
-               .createUser(createUserRequestBody)
-                .then()
-                .log().body()
+        CreateUserResponse createUserResponse = usersClient.createUser(createUserRequestBody);
+
        //Assert
-                .statusCode(200)
-                .body("id", Matchers.notNullValue())
-                .body("email", Matchers.equalTo(email));
+        assertEquals(createUserResponse.getStatusCode(),200);
+        assertNotNull(createUserResponse.getId());
+        assertEquals(createUserResponse.getEmail(),createUserRequestBody.getEmail());
     }
 }

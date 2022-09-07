@@ -17,10 +17,11 @@ public class CreateUserNegativeTests {
 
         CreateUserRequestBody createUserRequestBody = CreateUserRequestBody.builder()
                 .firstName("jafar1").lastName("juturu1").email("jafar7@gmail.com").build();
+
         usersClient
-                .createUser(createUserRequestBody)
+                .create(createUserRequestBody)
+
                 .then()
-                .log().body()
                 .statusCode(400)
                 .body("data.email",Matchers.equalTo("Email already used"));
     }
@@ -30,10 +31,10 @@ public class CreateUserNegativeTests {
         CreateUserRequestBody createUserRequestBody = CreateUserRequestBody.builder()
                 .firstName("jafar1").lastName("juturu1").email("jafar7gmail.com").build();
         usersClient
-                .createUser(createUserRequestBody)
+                .create(createUserRequestBody)
+
                 .then()
-                .log().body()
-                .statusCode(400)
-                .body("data.email", Matchers.equalTo("Path `email` is invalid (jafar7gmail.com)."));
+                  .statusCode(400)
+                   .body("data.email", Matchers.equalTo("Path `email` is invalid (jafar7gmail.com)."));
     }
 }

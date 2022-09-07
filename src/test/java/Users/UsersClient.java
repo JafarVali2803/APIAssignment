@@ -1,19 +1,32 @@
 package Users;
 
 import Users.Create.CreateUserRequestBody;
+import Users.Create.Response.CreateUserResponse;
 import io.restassured.response.Response;
 
 import static io.restassured.RestAssured.given;
 
 public class UsersClient {
-    public static Response createUser(CreateUserRequestBody createUserReqBody) {
-        return
+    public static CreateUserResponse createUser(CreateUserRequestBody createUserReqBody) {
+        Response response = create(createUserReqBody);
+        CreateUserResponse createUserResponse = response.as(CreateUserResponse.class);
+        createUserResponse.setStatusCode(response.statusCode());
+        return createUserResponse;
+    }
+
+    public static Response create(CreateUserRequestBody createUserReqBody) {
+        Response response =
                 given()
                     .header("app-id", "631039b2b2ee91048226aa57")
                     .contentType("application/json")
                     .body(createUserReqBody)
                 .when()
                     .post("https://dummyapi.io/data/v1/user/create");
+
+        response
+                .then()
+                    .log().body();
+        return response;
     }
 
     public static Response getAllUsers() {
