@@ -21,10 +21,9 @@ public class CreateUserTests {
     @Test
     public void shouldCreateUser() {
        String email = String.format("%s@gmail.com", UUID.randomUUID());
-       String firstName = "jafar1";
-       String lastName = "juturu1";
 
-         CreateUserRequestBody createUserRequestBody = new CreateUserRequestBody(firstName,lastName,email);
+        CreateUserRequestBody createUserRequestBody = CreateUserRequestBody.builder()
+                .firstName("jafar1").lastName("juturu1").email(email).build();
         //Act
        usersClient
                .createUser(createUserRequestBody)

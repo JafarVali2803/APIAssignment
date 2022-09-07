@@ -15,11 +15,8 @@ public class CreateUserNegativeTests {
     @Test
     public void shouldNotAllowToCreateUserWithExistingUser() {
 
-        String firstName = "jafar1";
-        String lastName = "juturu1";
-        String email = "jafar7@gmail.com";
-
-        CreateUserRequestBody createUserRequestBody = new CreateUserRequestBody(firstName,lastName,email);
+        CreateUserRequestBody createUserRequestBody = CreateUserRequestBody.builder()
+                .firstName("jafar1").lastName("juturu1").email("jafar7@gmail.com").build();
         usersClient
                 .createUser(createUserRequestBody)
                 .then()
@@ -30,11 +27,8 @@ public class CreateUserNegativeTests {
     @Test
     public void shouldNotAllowToCreateUserWithInvalidUser() {
 
-        String firstName = "jafar1";
-        String lastName = "juturu1";
-        String email = "jafar7gmail.com";
-
-        CreateUserRequestBody createUserRequestBody = new CreateUserRequestBody(firstName,lastName,email);
+        CreateUserRequestBody createUserRequestBody = CreateUserRequestBody.builder()
+                .firstName("jafar1").lastName("juturu1").email("jafar7gmail.com").build();
         usersClient
                 .createUser(createUserRequestBody)
                 .then()
