@@ -13,6 +13,7 @@ public class CreatePostResponse {
     private String image;
     private String likes;
     private String link;
+    private String tags;
     private String text;
     private String publishDate;
     private String updatedDate;
