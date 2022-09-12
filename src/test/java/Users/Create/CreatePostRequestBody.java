@@ -12,6 +12,6 @@ public class CreatePostRequestBody {
     private String text;
     private String image;
     private int likes;
-    private ArrayList<String> tags;
+    private String tags;
     private String owner;
 }
