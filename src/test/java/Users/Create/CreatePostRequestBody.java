@@ -3,7 +3,7 @@ package Users.Create;
 import lombok.Builder;
 import lombok.Getter;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 
 @Getter
 @Builder
@@ -12,6 +12,6 @@ public class CreatePostRequestBody {
     private String text;
     private String image;
     private int likes;
-    private String tags;
+    private ArrayList<String> tags;
     private String owner;
 }

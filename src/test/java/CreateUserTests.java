@@ -32,8 +32,7 @@ public class CreateUserTests {
         CreateUserResponse createUserResponse = usersClient.createUser(createUserRequestBody);
 
        //Assert
-        assertEquals(createUserResponse.getStatusCode(),200);
-        assertNotNull(createUserResponse.getId());
-        assertEquals(createUserResponse.getEmail(),createUserRequestBody.getEmail());
+        createUserResponse.assertUser(createUserRequestBody);
+
     }
 }
