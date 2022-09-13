@@ -5,6 +5,7 @@ import Users.Create.CreateUserRequestBody;
 import Users.Create.Response.CreatePostResponse;
 import Users.Create.Response.CreateUserErrorResponse;
 import Users.Create.Response.CreateUserResponse;
+import Users.GetPost.GetPostByUserIdResponse;
 import io.restassured.response.Response;
 
 import static io.restassured.RestAssured.given;
@@ -89,6 +90,25 @@ public class UsersClient {
                 .header("app-id", "631039b2b2ee91048226aa57")
                 .when()
                 .delete("https://dummyapi.io/data/v1/post/60d21bf867d0d8992e610e98");
+    }
+
+    public static GetPostByUserIdResponse getPost(String userId) {
+        Response response =
+          given()
+                .param("limit", 10)
+                .header("app-id", "631039b2b2ee91048226aa57")
+          .when()
+                .get("https://dummyapi.io/data/v1/user/{userId}/post?limit=10");
+        response
+          .then()
+                .log().body();
+
+              int statusCode =  response.statusCode();
+
+        GetPostByUserIdResponse getPostByUserIdResponse = response.as(GetPostByUserIdResponse.class);
+        getPostByUserIdResponse.setStatusCode(statusCode);
+
+        return getPostByUserIdResponse;
     }
 }
 
