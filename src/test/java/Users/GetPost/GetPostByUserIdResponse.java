@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -13,12 +14,30 @@ public class GetPostByUserIdResponse {
     @Setter
     private int statusCode;
 
-    @JsonProperty("Data")
-    private List<Data> dataList;
+    @JsonProperty("data")
+    private Data[] data;
     private int total;
     private int page;
     private int limit;
 
-    private Owner owner;
+    @Getter
+    public static class Data {
+        private String id;
+        private String image;
+        private int likes;
+        private String[] tags;
+        private String text;
+        private Date publishDate;
+        private Date updatedDate;
+        private Owner owner;
+    }
+
+    @Getter
+    public static class Owner {
+        private String id;
+        private String firstName;
+        private String lastName;
+    }
+
 }
 

@@ -40,21 +40,6 @@ public class UsersClient {
         return response;
     }
 
-    public static Response getAllUsers() {
-        return
-                given()
-                    .header("app-id", "631039b2b2ee91048226aa57")
-                .when()
-                    .get("https://dummyapi.io/data/v1/user?limit=10");
-    }
-    public static Response getUsersUnderAccount() {
-        return
-                given()
-                    .header("app-id", "631039b2b2ee91048226aa57")
-                .when()
-                    .get("https://dummyapi.io/data/v1/user?created=1");
-    }
-
     public static CreatePostResponse createPost(CreatePostRequestBody createPostRequestBody) {
         Response response = createPostObject(createPostRequestBody);
         CreatePostResponse createPostResponse = response.as(CreatePostResponse.class);
@@ -85,21 +70,18 @@ public class UsersClient {
                 .when()
                 .get("https://dummyapi.io/data/v1/user/60d0fe4f5311236168a109ca/post?limit=10");
     }
-    public static Response deletePostByPostId() {
-        return given()
-                .header("app-id", "631039b2b2ee91048226aa57")
-                .when()
-                .delete("https://dummyapi.io/data/v1/post/60d21bf867d0d8992e610e98");
-    }
 
-    public static GetPostByUserIdResponse getPost(String userId) {
+    public static GetPostByUserIdResponse getPost() {
         Response response =
           given()
                 .param("limit", 10)
                 .header("app-id", "631039b2b2ee91048226aa57")
+
+        //Need to pass userId in the path param implicitly
           .when()
-                .get("https://dummyapi.io/data/v1/user/{userId}/post?limit=10");
-        response
+                .get("https://dummyapi.io/data/v1/user/631592864779a10fec06c398/post?limit=10");
+
+       response
           .then()
                 .log().body();
 

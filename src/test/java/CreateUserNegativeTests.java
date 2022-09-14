@@ -10,33 +10,38 @@ import static io.restassured.RestAssured.given;
 
 public class CreateUserNegativeTests {
     private UsersClient usersClient;
+
     @BeforeClass
-    public void beforeClass(){
+    public void beforeClass() {
         usersClient = new UsersClient();
     }
+
     @Test
     public void shouldNotAllowToCreateUserWithExistingUser() {
 
-        CreateUserRequestBody createUserRequestBody = CreateUserRequestBody.builder()
-                .firstName("jafar1").lastName("juturu1").email("jafar7@gmail.com").build();
+        //Arrange
+        CreateUserRequestBody createUserRequestBody = new CreateUserRequestBody.Builder().email("jafar7@gmail.com").build();
 
+        //Act
         CreateUserErrorResponse userExpectError = usersClient
                 .createUserExpectError(createUserRequestBody);
 
-        Assert.assertEquals(userExpectError.getStatusCode(),400);
-        Assert.assertEquals(userExpectError.getData().getEmail(),"Email already used");
+        //Assert
+        Assert.assertEquals(userExpectError.getStatusCode(), 400);
+        Assert.assertEquals(userExpectError.getData().getEmail(), "Email already used");
     }
+
     @Test
     public void shouldNotAllowToCreateUserWithInvalidUser() {
 
-        CreateUserRequestBody createUserRequestBody = CreateUserRequestBody.builder()
-                .firstName("jafar1").lastName("juturu1").email("jafar7gmail.com").build();
+        CreateUserRequestBody createUserRequestBody = new CreateUserRequestBody.Builder().email("jafar7gmail.com").build();
 
         CreateUserErrorResponse userExpectError = usersClient
                 .createUserExpectError(createUserRequestBody);
 
-        Assert.assertEquals(userExpectError.getStatusCode(),400);
-        Assert.assertEquals(userExpectError.getData().getEmail(),"Path `email` is invalid (jafar7gmail.com).");
+        Assert.assertEquals(userExpectError.getStatusCode(), 400);
+        Assert.assertEquals(userExpectError.getData().getEmail(), "Path `email` is invalid (jafar7gmail.com).");
 
     }
 }
+
