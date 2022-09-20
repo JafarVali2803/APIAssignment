@@ -28,5 +28,6 @@ public class CreatePosts {
         assertEquals(createPostResponse.getStatusCode(),200);
         Assert.assertNotNull(createPostResponse.getId());
         assertEquals(createPostResponse.getCreatePostResponseOwner().getId(),createPostRequestBody.getOwner());
+        System.out.println("Test");
     }
 }
